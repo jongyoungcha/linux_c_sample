@@ -46,7 +46,7 @@ int main()
 
     for ( i = 0; i < tcnt; i++)
     {
-	pthread_join(tids[i], (void**)&status);
+		pthread_join(tids[i], (void**)&status);
     }
     
     return 0;
