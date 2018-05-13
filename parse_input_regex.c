@@ -1,6 +1,7 @@
 #include <regex.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char* argv[])
 {
@@ -9,13 +10,13 @@ int main(int argc, char* argv[])
 	regex_t regex;
 	int ret = 0;
 	
-	char* comp_rule = "^[1-9][SDT][\\#\\*]*[1-9][SDT][\\#\\*]*[1-9][SDT][\\#\\*]*\n";
-	/* char* comp_rule = "^([1-9][SDT][\\*\\#]*]){3}"; */
+	char* comp_rule = "^[1-9][SDT][\\#\\*]{0,1}";
 	
 	fgets(inputted, 20, stdin);
 	printf("%s", inputted);
-	
-	ret = regcomp(&regex, comp_rule , 0);
+	inputted[strlen(inputted)] = '\0';
+		
+	ret = regcomp(&regex, comp_rule , REG_EXTENDED);
 	if (ret < 0)
 	{
 		fprintf(stderr, "regcomp() was failed...\n");
@@ -37,7 +38,6 @@ int main(int argc, char* argv[])
 		fprintf(stderr, "Regex match failed:%s\n", msgbuf);
 		exit(1);
 	}
-	
 	
 	return 0;
 }
